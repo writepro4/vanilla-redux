@@ -25,7 +25,8 @@ const reducer = (state = [], action) => {
         case ADD_TODO:
             return [{ text: action.text, id: Date.now() }, ...state];
         case DELETE_TODO:
-            return [];
+            //filter는 true가 아닌 배열만 삭제하고 나머지는 그대로 반환.
+            return state.filter(toDo => toDo.id !== action.id);
         default:
             return state;
     }
@@ -40,7 +41,7 @@ const dispatchAddToDo = text => {
 };
 
 const dispatchDeleteToDo = e => {
-    const id = e.target.parentNode.id;
+    const id = parseInt(e.target.parentNode.id);
     store.dispatch(deleteToDo(id));
 };
 
